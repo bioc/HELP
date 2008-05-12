@@ -1,0 +1,25 @@
+import(Biobase)
+
+export(
+	readSampleKey
+)
+
+exportMethods(
+	calcGC,
+	calcPrototype,
+	calcTm,
+	combineData,
+	createWiggle,
+	exprs2,
+	"exprs2<-",
+	fuzzyMatches,
+	getFeatures,
+	getSamples,
+	plotBins,
+	plotChip,
+	plotFeature,
+	plotPairs,
+	quantileNormalize,
+	readDesign,
+	readPairs
+)

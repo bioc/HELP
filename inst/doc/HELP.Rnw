@@ -1,0 +1,408 @@
+% -*- mode: noweb; noweb-default-code-mode: R-mode; -*-
+%\VignetteIndexEntry{1. Primer}
+%\VignetteKeywords{Preprocessing}
+%\VignetteDepends{HELP}
+%\VignettePackage{HELP}
+%documentclass[12pt, a4paper]{article}
+\documentclass[12pt]{article}
+
+\usepackage{amsmath,amscd,pstricks}
+\usepackage{hyperref}
+\usepackage[authoryear,round]{natbib}
+\usepackage{float}
+
+\textwidth=6.2in
+\textheight=8.5in
+%\parskip=.3cm
+\oddsidemargin=.1in
+\evensidemargin=.1in
+\headheight=-.3in
+
+\newcommand{\scscst}{\scriptscriptstyle}
+\newcommand{\scst}{\scriptstyle}
+\newcommand{\Rfunction}[1]{{\texttt{#1}}}
+\newcommand{\Robject}[1]{{\texttt{#1}}}
+\newcommand{\Rpackage}[1]{{\textit{#1}}}
+
+\begin{document}
+
+\title{HELP Microarray Analytical Tools}
+\author{Reid F. Thompson}
+
+\maketitle
+\tableofcontents
+%%\newpage
+%%\listoffigures
+\newpage
+\section{Introduction}
+\label{intro}
+The \Rpackage{HELP} package provides a number of tools for the analysis of microarray data, with particular application 
+to DNA methylation microarrays using the Roche Nimblegen format and HELP assay protocol \citep{khulan:etal:2006}.  The package includes plotting functions for the probe level data useful for
+quality control, as well as flexible functions that allow the user to convert probe level data to
+methylation measures.
+
+In order to use these tools, you must first load the \Rpackage{HELP} package:
+<<>>=
+library(HELP)
+@
+<<echo=FALSE,results=hide>>=
+data.path <- system.file("pipeline.data", package="HELP")
+@
+
+It is assumed that the reader is already familiar with oligonucleotide arrays and with the 
+design of Roche Nimblegen arrays in particular. If this is not the case, consult the NimbleScan User's Guide for further information \citep{nimblescan}.
+
+Throughout this vignette, we will be exploring actual data for 3 samples from a small corner of a larger microarray chip.
+
+\newpage
+\section{Changes for HELP in current BioC release}
+\label{current.version.changes}
+
+\begin{itemize}
+\item This is the first public release of the \Rpackage{HELP} package.
+\end{itemize}
+
+
+
+\newpage
+\section{Data import and Design information}
+\subsection{Pair files and probe-level data}
+\label{pairfiles}
+
+The package is designed to import matched Roche Nimblegen formatted .pair files, which contain the raw numerical output for each signal channel from each microarray scan.  For applications to the HELP assay in particular, the Cy3 (532nm) 
+channel is reserved for the reference sample (MspI) and the Cy5 (635nm) channel is reserved for the experimental half of the co-hybridization (HpaII).
+
+In addition to gridding and other technical controls supplied by 
+Roche NimbleGen, the microarrays also report random probes (50-mers of random nucleotides) which serve as 
+a metric of non-specific annealing and background fluorescence. By design, all probes are randomly distributed across each microarray. 
+
+Signal intensity data for every spot on the array is read from each .pair file and stored in an object of class \Robject{ExpressionSet}, 
+described in the Biobase vignette. The following code will import three sets of example .pair files included with the \Rpackage{HELP} package:
+<<>>=
+msp1.files <- dir(data.path, pattern="532[._]pair", full.names=TRUE)
+hpa2.files <- dir(data.path, pattern="635[._]pair", full.names=TRUE)
+N <- length(msp1.files)
+for (i in 1:N) {
+	if (i == 1) {
+		pairs <- readPairs(msp1.files[i],hpa2.files[i])
+	}
+	else {
+		pairs <- readPairs(msp1.files[i],hpa2.files[i],pairs)
+	}
+}
+class(pairs)
+dim(pairs)
+sampleNames(pairs)
+@
+
+\newpage
+\subsection{Sample Key}
+\label{samples}
+The \Rfunction{readSampleKey()} function, which can be used at any point in time, provides the ability to apply a user-defined map of chip names to numeric identifiers, so as to provide 
+human-readable aliases for each set of pair files that are imported.  The format of a standard sample key file is tab-delimited text, and contains 
+two columns, CHIP\_ID and SAMPLE, with CHIP\_ID representing the numeric chip identifier (supplied by NimbleGen) and SAMPLE representing the 
+user-defined alias or human-readable chip name.
+<<>>=
+chips <- sub("[_.]*532[_.]*pair.*","",basename(msp1.files))
+chips ## CHIP_IDs
+samplekey <- file.path(data.path, "sample.key.txt")
+chips <- readSampleKey(file=samplekey,chips=chips)
+chips ## SAMPLEs (from supplied key)
+sampleNames(pairs) <- chips
+@
+
+\newpage
+\subsection{Design files and information}
+\label{designs}
+Roche NimbleGen formatted design files (.ndf and .ngd) are then used to link probe identifiers to their corresponding HpaII fragments, 
+and provide genomic position and probe sequence information, stored as \Robject{featureData}. Design file import should be used following .pair file import. 
+File names should end with either .ndf or .ngd, but can contain additional extensions so long as the file formats are appropriate to the relevant design file.
+
+<<>>=
+ndf.file <- file.path(data.path, "HELP.ndf.txt")
+ngd.file <- file.path(data.path, "HELP.ngd.txt")
+pairs <- readDesign(ndf.file, ngd.file, pairs)
+pData(featureData(pairs))[1:10,c("CHR","START","STOP")]
+getFeatures(pairs,"SEQUENCE")[1]
+@
+
+\newpage
+\subsection{Melting temperature (Tm) and GC content}
+\label{temp.and.gc}
+Oligonucleotide melting temperatures can be calculated with the \Rfunction{calcTm()} function.  Currently, the only supported method for Tm 
+calculation is the nearest-neighbor base-stacking algorithm \citep{allawi:santalucia:1997} and the unified thermodynamic parameters \citep{santalucia:1998}. This functionality can 
+be used for individual or groups of sequences; however, it can also be applied to an object of class \Robject{ExpressionSet} containing sequence 
+information.
+
+<<>>=
+calcTm("ATCTAGGAAGATTTAGAGAGGCAATGTGTCATTTAGCATCTAATTTTACC")
+calcTm(getFeatures(pairs,"SEQUENCE")[1:4])
+@
+
+GC content can be calculated with the \Rfunction{calcGC()} function, which returns values expressed as a percent.  This functionality can be 
+used for individual or groups of sequences, and may also be applied to \Robject{ExpressionSet} objects containing sequence information.
+
+<<>>=
+calcGC("ATCTAGGAAGATTTAGAGAGGCAATGTGTCATTTAGCATCTAATTTTACC")
+calcGC(getFeatures(pairs,"SEQUENCE")[1:4])
+@
+
+
+\newpage
+\section{Quality Control and Data Exploration}
+\subsection{Calculating prototypes}
+\label{prototype}
+
+Consideration of probe signal in the context of its performance across multiple arrays improves the ability to discriminate 
+finer deviations in performance. Prototypical signal intensities and ratios can be defined using the \Rfunction{calcPrototype()} 
+function provided with this package. The approach is analagous to one described by Reimers and Weinstein \citep{reimers:weinstein:2005}. 
+Data from each array are (optionally) mean-centered and each probe is then assigned a summary measure 
+equivalent to the (20\%-) trimmed mean of its values across all arrays. This defines a prototype with which each individual array can be 
+compared.
+
+<<>>=
+getSamples(pairs)[1:4,]
+calcPrototype(pairs,center=FALSE)[1:4]
+@
+
+\newpage
+\subsection{Chip image plots}
+\label{chipImage}
+\begin{figure}[H]
+The \Rfunction{plotChip()} function can be used to display spatial variation of microarray data contained in 
+\Robject{ExpressionSet} objects or in a matrix format.  As noted previously, the data being explored throughout this vignette 
+represents only a small corner from a larger microarray chip.  
+
+The figure shown below is produced using default parameters and 
+therefore shows the data from signal channel 1 (MspI) for the specified sample (Brain2). Note the white blocks on the chip plot, 
+which correspond to coordinates on the array that do not contain probe-level measurements (this is due to the use of .pair file reports, which typically exclude gridding controls).
+\begin{center}
+<<label=fig1,fig=TRUE,echo=TRUE>>=
+plotChip(pairs, sample="Brain2")
+@
+\end{center}
+\caption{Plot of actual microarray data}
+\label{fig:one}
+\end{figure}
+
+\newpage
+\begin{figure}[H]
+The magnitude of data needed to demonstrate quality control analysis for an entire microarray set is too large to 
+include within the scope of this vignette and package distribution.  However, please refer to our published work for a further discussion of chip plots and quality control of Roche NimbleGen microarrays \citep{thompson:etal:2008}.  The following code, 
+included as an example within the R documentation for the \Rfunction{plotChip()} function, demonstrates what one may see in some 
+cases of poor hybridization with high spatial heterogeneity. However, it is important to note that the following figure is generated from synthetic data, as follows:
+
+\begin{center}
+<<label=fig2,fig=TRUE,echo=TRUE>>=
+x <- rep(1:100,100)
+y <- rep(1:100,each=100)
+z <- x*(1001:11000/1000)
+z <- z-mean(z)
+z <- z*(sample(1:10000/10000)+1)
+plotChip(x,y,z,main="Curved gradient",xlab="x",ylab="y")
+@
+\end{center}
+\caption{Spatial heterogeneity}
+\label{fig:two}
+\end{figure}
+
+\newpage
+\subsection{Fragment size v. signal intensity}
+\label{sizeVintensity}
+ Visualization of signal intensities as a function of fragment size reveals important behavioral characteristics of the HELP assay. MspI-derived 
+ representations show amplification of all HpaII fragments (HTFs) and therefore high signal intensities across the fragment size distribution.  The 
+ HpaII-derived representation shows a second variable population of probes with low signal intensities across all fragment sizes represented, corresponding 
+ to DNA sequences that are methylated (figure below). For a further discussion, refer to \cite{khulan:etal:2006} and/or \cite{thompson:etal:2008}. 
+ Background signal intensity is measured by random probes. ``Failed'' probes are defined as those 
+where the level of MspI and HpaII signals are indistinguishable from random probe intensities, 
+defined by a cutoff of 2.5 median absolute deviations above the median of random probe signals.
+
+\begin{figure}[H]
+\begin{center}
+<<echo=FALSE,results=hide>>=
+exprs(pairs) <- log2(exprs(pairs))
+exprs2(pairs) <- log2(exprs2(pairs))
+@
+<<label=fig3,fig=TRUE,echo=TRUE>>=
+plotFeature(pairs[,"Brain2"],cex=0.5)
+@
+\end{center}
+\caption{Fragment size v. intensity}
+\label{fig:three}
+\end{figure}
+
+\newpage
+\section{Single-sample quantile normalization}
+\subsection{Concept}
+\label{norm.ex}
+Fragment size v. signal intensity plots demonstrate a size bias that can be traced back to the LM-PCR used in the HELP assay. 
+The \Rpackage{HELP} package makes use of a novel quantile normalization approach, similar to the RMA method described by \cite{irizarry:etal:2003}. 
+The \Rfunction{quantileNormalize()} function, which performs intra-array quantile normalization, is used to align signal intensities across 
+density-dependent sliding windows of size-sorted data. The algorithm can be used for any data whose distribution within each binning window should be identical (i.e. the data should not depend upon the binning variable). For a 
+further discussion of the actual algorithm, please refer to \cite{thompson:etal:2008}. The figure shown (below) demonstrates a single sample (black distribution) 
+whose components divide into 20 color-coded bins, each of which has a different distribution.
+
+\begin{figure}[H]
+\begin{center}
+<<echo=FALSE,results=hide>>=
+slopes <- (seq(from=1,to=10,length.out=20)-5.5)/4.5
+x <- c()
+for (i in 1:20) {
+for (j in 1:10) {
+x <- c(x,seq(from=0,to=slopes[i]*j,length.out=10))
+}
+}
+y <- rep(1:20,each=100)
+@
+<<label=fig4,fig=TRUE,echo=FALSE>>=
+plot(density(x),main="")
+for (i in 1:20) {
+d <- density(x[which(y==i)])
+lines(d$x,0.3*d$y/max(d$y),col=rainbow(n=20,start=0,end=0.66)[21-i])
+}
+lines(density(x))
+@
+\end{center}
+\caption{Twenty bins with different distributions, before normalization}
+\label{fig:four}
+\end{figure}
+
+\begin{figure}[H]
+With normalization, the different bins are each adjusted to an identical distribution, calculated 
+as the average distribution for all of the component bins.  This gives a new sample, normalized across its component bins, 
+shown in the figure (below).  Note that the \Rfunction{plotBins()} function (included) can be used to explore bin distributions in a 
+manner similar to the figure depicted (below).  Also note that the individual bin densities are stacked (for easier visualization), 
+the alternative being complete overlap and a loss of ability to visually resolve independent bin distributions.
+\begin{tabbing}
+\verb@> quantileNormalize(x, y, num.bins=20, num.steps=1, ...)@ \\
+\end{tabbing}
+\begin{center}
+<<label=fig5,fig=TRUE,echo=FALSE>>=
+x2 <- quantileNormalize(x,y,num.bins=20,num.steps=1,mode="discrete")
+d2 <- density(x2)
+plot(c(min(d2$x), max(d2$x)), c(0, 20), type="p", cex=0, ylab="Density (by bin)", xlab="", main="")
+for (i in 1:20) {
+d <- density(x2[which(y==i)])
+lines(d$x, 0.5*i+0.25*(1+i/20)*20*d$y/max(d$y), col=rainbow(n=20,start=0,end=0.66)[21-i], lty="solid")
+}
+@
+\end{center}
+\caption{Twenty bins with identical distributions, after normalization}
+\label{fig:five}
+
+\end{figure}
+
+\newpage
+\subsection{Application}
+To apply the normalization to actual HELP data, the data must be considered in terms of their 
+component signals. Specifically, HpaII and MspI must be treated individually, and the 
+signals that exist above background noise must be treated separately from those that fall within 
+the distribution of noise (defined by random probes). Note that data should already be loaded appropriately (as above).
+
+\begin{itemize}
+\item Identify background noise (note that MspI data is stored in element ``exprs'' while HpaII is stored in element ``exprs2''):
+<<>>=
+rand <- which(getFeatures(pairs, "TYPE")=="RAND")
+msp.rand <- getSamples(pairs, element="exprs")[rand,]
+hpa.rand <- getSamples(pairs, element="exprs2")[rand,]
+@
+\item Define background cutoffs:
+<<>>=
+msp.rand.med <- apply(msp.rand, 2, median)
+msp.rand.mad <- apply(msp.rand, 2, mad)
+hpa.rand.med <- apply(hpa.rand, 2, median)
+hpa.rand.mad <- apply(hpa.rand, 2, mad)
+msp.fail <- msp.rand.med + 2.5*msp.rand.mad
+hpa.fail <- hpa.rand.med + 2.5*hpa.rand.mad
+hpa.meth <- apply(hpa.rand, 2, quantile, 0.99)
+@
+\item MspI normalization: handle one sample at a time (in this case, ``Brain2'') and remove ``failed'' probes from consideration:
+<<>>=
+norand <- which(getFeatures(pairs, "TYPE")=="DATA")
+size <- as.numeric(getFeatures(pairs, "SIZE"))[norand]
+msp <- getSamples(pairs, "Brain2", element="exprs")[norand]
+hpa <- getSamples(pairs, "Brain2", element="exprs2")[norand]
+nofail <- which(msp>msp.fail["Brain2"] | hpa>hpa.fail["Brain2"])
+msp.norm <- msp
+msp.norm[nofail] <- quantileNormalize(msp[nofail],size[nofail])
+@
+\item HpaII normalization: handle probe-level data that fall within background distribution separately from high signals:
+<<>>=
+meth <- which(msp>msp.fail["Brain2"] & hpa<=hpa.meth["Brain2"])
+hpa.norm <- hpa
+hpa.norm[meth] <- quantileNormalize(hpa[meth],size[meth])
+nometh <- which(hpa>hpa.meth["Brain2"])
+hpa.norm[nometh] <- quantileNormalize(hpa[nometh],size[nometh])
+@
+\newpage
+\item Create normalized \Robject{ExpressionSet} object:
+<<>>=
+pairs.norm <- pairs
+exprs(pairs.norm)[norand, "Brain2"] <- msp.norm
+exprs2(pairs.norm)[norand, "Brain2"] <- hpa.norm
+getSamples(pairs, element="exprs")[1:5,]
+getSamples(pairs.norm, element="exprs")[1:5,]
+@
+
+\end{itemize}
+
+
+\newpage
+\section{Data summarization}
+\label{combine}
+
+The methylation status of each HpaII fragment is typically measured by a set of probes 
+(number is variable, depending on the array design). Thus, probe-level data must be grouped 
+and summarized.  The \Rfunction{combineData()} function employs a simple mean (by default) 
+to each group of probe-level datapoints.  This functionality should be applicable to any dataset defined by 
+containers consisting of multiple (and potentially variable numbers of) instances of probe-level data which require summarization. 
+For application to HELP, MspI signal intensities 
+are supplied as a weighting matrix and the 20\%-trimmed mean is calculated for each group of 
+probes. Here we show the first five results:
+
+<<>>=
+data <- getSamples(pairs,element="exprs2")
+seqids <- getFeatures(pairs,'SEQ_ID')
+weight <- getSamples(pairs,element="exprs")
+combineData(data, seqids, weight, trim=0.2)[1:5,]
+@
+The summarization can also be applied directly to \Robject{ExpressionSet} objects.  The following code 
+generates an unweighted summarization of MspI signal intensity data, again we show the first five results:
+<<>>=
+combineData(pairs, feature.group='SEQ_ID', trim=0.2)[1:5,]
+@
+
+\newpage
+\section{Data Visualization}
+\label{pairplots}
+\begin{figure}[H]
+Sample-to-sample relationships can be explored at the global level using both pairwise (Pearson) 
+correlation and unsupervised clustering approaches, among other techniques.  The 
+\Rfunction{cor()} and \Rfunction{hclust()} functions perform these tasks in particular.  However, 
+the \Rfunction{plotPairs()} function included with this package is particularly suited for pairwise 
+visualization of sample relationships. For instance, HpaII signals are compared in the following figure:
+
+\begin{center}
+<<label=fig6,fig=TRUE,echo=TRUE>>=
+plotPairs(pairs,element="exprs2")
+@
+\end{center}
+\caption{Pairwise comparison of samples}
+\label{fig:six}
+
+\end{figure}
+
+
+\newpage
+\appendix
+\section{Previous Release Notes}
+\label{previous}
+\begin{itemize}
+\item No previous releases to date.
+\end{itemize}
+
+\newpage
+\bibliographystyle{plainnat}
+\bibliography{HELP}
+
+\end{document}

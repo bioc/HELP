@@ -1,0 +1,39 @@
+base.stacking.thermodynamics
+                        Base-stacking thermodynamic parameters
+calcGC                  Calculate GC percent
+calcGC-methods          Calculate GC percent (methods)
+calcPrototype           Calculate prototype
+calcPrototype-methods   Calculate prototype (methods)
+calcTm                  Calculate Tm
+calcTm-methods          Calculate Tm (methods)
+combineData             Combine data
+combineData-methods     Combine data (methods)
+createWiggle            Create wiggle track
+createWiggle-methods    Create wiggle track (methods)
+exprs2                  Retrieve microarray data (for signal channel 2)
+                        from ExpressionSets
+exprs2-methods          Retrieve microarray data (for signal channel 2)
+                        from ExpressionSets (methods)
+fuzzyMatches            Fuzzy matching
+fuzzyMatches-methods    Fuzzy matching (methods)
+getFeatures             Get features (methods)
+getFeatures-methods     Get features (methods)
+getSamples              Get samples
+getSamples-methods      Get samples (methods)
+plotBins                Plot bins
+plotBins-methods        Plot bins (methods)
+plotChip                Plot chip image
+plotChip-methods        Plot chip image (methods)
+plotFeature             Plot feature versus two-color intensity
+plotFeature-methods     Plot feature versus two-color intensity
+                        (methods)
+plotPairs               Plot tree-pairs
+plotPairs-methods       Plot tree-pairs (methods)
+quantileNormalize       Quantile normalization
+quantileNormalize-methods
+                        Quantile normalization (methods)
+readDesign              Read NimbleGen design files
+readDesign-methods      Read NimbleGen design files (methods)
+readPairs               Read Nimblegen .pair files
+readPairs-methods       Read Nimblegen .pair files (methods)
+readSampleKey           Read sample key
