@@ -30,7 +30,7 @@ setMethod("createWiggle",
 
 ##DEFINE METHOD TO HANDLE CLASS: "ExpressionSet"
 setMethod("createWiggle", 
-	signature=c("ExpressionSet", "vector"), 
+	signature=c("ExpressionSet", "matrix"), 
 	function(x, y, element="exprs", ...) {
 		if (!validObject(x)) {
 			stop("'x' not a valid ExpressionSet object")
@@ -42,10 +42,17 @@ setMethod("createWiggle",
 	}
 )
 
-
-##DEFINE METHOD TO HANDLE CLASS: "ExpressionSet"
+##DEFINE METHOD TO HANDLE CLASS: "vector"
 setMethod("createWiggle", 
-	signature=c("vector", "vector"), 
+	signature=c("vector", "matrix"), 
+	function(x, y, ...) {
+		callGeneric(as.matrix(x), y, ...)
+	}
+)
+
+##DEFINE METHOD TO HANDLE CLASS: "matrix"
+setMethod("createWiggle", 
+	signature=c("matrix", "matrix"), 
 	function(x, y, samples=NULL, na.rm=TRUE, colors=NULL, file=NULL, append=FALSE, sep="\t", ...) {
 		x <- getSamples(as.matrix(x), samples, ...)
 		N <- dim(x)[2]

@@ -35,6 +35,14 @@ setMethod("combineData",
 setMethod("combineData", 
 	signature=c("vector", "vector", "missing"), 
 	function(x, y, w, ...) {
+		callGeneric(as.matrix(x), y, ...)
+	}
+)
+
+##DEFINE METHOD TO HANDLE CLASS: "missing"
+setMethod("combineData", 
+	signature=c("matrix", "vector", "missing"), 
+	function(x, y, w, ...) {
 		x <- as.matrix(x)
 		if (length(y) != dim(x)[1]) {
 			callGeneric(x, rep(1, dim(x)[1]), y, ...)
@@ -96,9 +104,17 @@ setMethod("combineData",
 	}
 )
 
-##DEFINE METHOD TO HANDLE CLASS: "missing"
+##DEFINE METHOD TO HANDLE CLASS: "vector"
 setMethod("combineData", 
 	signature=c("vector", "vector", "vector"), 
+	function(x, y, w, ...) {
+		callGeneric(as.matrix(x), y, as.matrix(w), ...)
+	}
+)
+
+##DEFINE METHOD TO HANDLE CLASS: "matrix"
+setMethod("combineData", 
+	signature=c("matrix", "vector", "matrix"), 
 	function(x, y, w, samples=NULL, trim=0, na.rm=FALSE, verbose=FALSE, ...) {
 		if (verbose) {
 			start <- proc.time()["elapsed"]

@@ -6,6 +6,8 @@
 \alias{combineData,vector,missing,vector-method}
 \alias{combineData,vector,vector,missing-method}
 \alias{combineData,vector,vector,vector-method}
+\alias{combineData,matrix,vector,missing-method}
+\alias{combineData,matrix,vector,matrix-method}
 \alias{combineData,ExpressionSet,missing,missing-method}
 \alias{combineData,ExpressionSet,vector,missing-method}
 \title{ Combine data (methods)}
@@ -24,6 +26,10 @@
 \item{x = "vector", y = "vector", w = "missing"}{ Handle partially empty function call. Reinterpret with default parameters instead of missing values.  }
 
 \item{x = "vector", y = "vector", w = "vector"}{ Handle input of three vectors specifying data, grouping, and weighting information, respectively. Note that the data and weighting inputs are handled as matrices.  }
+
+\item{x = "matrix", y = "vector", w = "missing"}{ Handle partially empty function call. Reinterpret with default parameters instead of missing values.  }
+
+\item{x = "matrix", y = "vector", w = "matrix"}{ Handle input of one matrix, one vector, and one matrix specifying data, grouping, and weighting information, respectively.  }
 
 \item{x = "ExpressionSet", y = "missing", w = "missing"}{ Handle input of an object of class \code{ExpressionSet}. Derive grouping and weighting data from \code{featureData} and \code{AssayDataElement}, respectively. }
 

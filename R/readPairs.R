@@ -180,11 +180,3 @@ setMethod("readPairs",
 	}
 )
 
-##DEFINE METHOD TO HANDLE CLASS: "character"
-setMethod("readPairs", 
-	signature=c("character", "character", "character"), 
-	function(x, y, z, ...) {
-		callGeneric(x, y, dbSetup(z), ...)
-	}
-)
-

@@ -24,9 +24,17 @@ setMethod("calcPrototype",
 	}
 )
 
-##DEFINE MAIN calcPrototype() METHOD TO HANDLE CLASS: "matrix"
+##DEFINE METHOD TO HANDLE CLASS: "vector"
 setMethod("calcPrototype", 
 	signature=c("vector"), 
+	function (x, ...) {
+		callGeneric(as.matrix(x), ...)
+	}
+)
+
+##DEFINE MAIN calcPrototype() METHOD TO HANDLE CLASS: "matrix"
+setMethod("calcPrototype", 
+	signature=c("matrix"), 
 	function(x, samples=NULL, center=TRUE, trim=0.1, verbose=FALSE, ...) {
 		if (verbose) {
 			start <- proc.time()["elapsed"]

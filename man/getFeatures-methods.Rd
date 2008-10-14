@@ -11,6 +11,7 @@
 \alias{getFeatures,vector,missing-method}
 \alias{getFeatures,vector,NULL-method}
 \alias{getFeatures,vector,vector-method}
+\alias{getFeatures,matrix,vector-method}
 \title{ Get features (methods)}
 \description{
  Methods for fetching a subset of features from a given data structure
@@ -37,6 +38,8 @@
 \item{x = "vector", y = "NULL"}{ Handle input of a vector (interpreted as a matrix). Select all feature data }
 
 \item{x = "vector", y = "vector"}{ Handle input of two vectors specifying feature data and feature subset information, respectively. }
+
+\item{x = "matrix", y = "vector"}{ Handle input of a matrix and a vector specifying feature data and feature subset information, respectively. }
 }}
 \author{ Reid F. Thompson (\email{rthompso@aecom.yu.edu}) }
 \seealso{ \code{\link{getFeatures}} }

@@ -115,6 +115,14 @@ setMethod("getFeatures",
 ##DEFINE METHOD TO HANDLE CLASS: "vector"
 setMethod("getFeatures", 
 	signature=c("vector", "vector"), 
+	function(x, y, ...) {
+		callGeneric(as.matrix(x), y, ...)
+	}
+)
+
+##DEFINE METHOD TO HANDLE CLASS: "matrix"
+setMethod("getFeatures", 
+	signature=c("matrix", "vector"), 
 	function(x, y, order=NULL, ...) {
 		x <- as.matrix(x)
 		y <- as.vector(y)

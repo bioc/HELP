@@ -57,6 +57,22 @@ setMethod("getSamples",
 	}
 )
 
+##DEFINE METHOD TO HANDLE CLASS: "matrix"
+setMethod("getSamples", 
+	signature=c("matrix", "missing"), 
+	function(x, y, ...) {
+		return(as.matrix(x))
+	}
+)
+
+##DEFINE METHOD TO HANDLE CLASS: "matrix"
+setMethod("getSamples", 
+	signature=c("matrix", "NULL"), 
+	function(x, y, ...) {
+		return(as.matrix(x))
+	}
+)
+
 ##DEFINE METHOD TO HANDLE CLASS: "ExpressionSet"
 setMethod("getSamples", 
 	signature=c("ExpressionSet", "vector"), 
@@ -71,9 +87,17 @@ setMethod("getSamples",
 	}
 )
 
-##DEFINE METHOD TO HANDLE CLASS: "vector"
+##DEFINE METHOD TO HANDLE CLASS: "matrix"
 setMethod("getSamples", 
 	signature=c("vector", "vector"), 
+	function(x, y, ...) {
+		callGeneric(as.matrix(x), y, ...)
+	}
+)
+
+##DEFINE METHOD TO HANDLE CLASS: "vector"
+setMethod("getSamples", 
+	signature=c("matrix", "vector"), 
 	function(x, y, order=NULL, ...) {
 		x <- as.matrix(x)
 		y <- as.vector(y)

@@ -26,7 +26,7 @@ setMethod("plotPairs",
 
 ##DEFINE MAIN plotPairs() METHOD TO HANDLE CLASS: "matrix"
 setMethod("plotPairs", 
-	signature=c("vector"), 
+	signature=c("matrix"), 
 	function(x, samples=NULL, scale=TRUE, groups=TRUE, dist.method="euclidean", hclust.method="ward", k=NULL, ...) {
 		par.initial <- par()
 		x <- getSamples(as.matrix(x), samples, ...)

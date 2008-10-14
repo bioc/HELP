@@ -125,10 +125,3 @@ setMethod("readDesign",
 	}
 )
 
-##DEFINE METHOD TO HANDLE CLASS: "character"
-setMethod("readDesign", 
-	signature=c("character", "character", "character"), 
-	function(x, y, z, ...) {
-		callGeneric(x, y, dbSetup(z), ...)
-	}
-)

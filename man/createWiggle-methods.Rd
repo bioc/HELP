@@ -3,8 +3,9 @@
 \alias{createWiggle-methods}
 \alias{createWiggle,missing,missing-method}
 \alias{createWiggle,ExpressionSet,missing-method}
-\alias{createWiggle,ExpressionSet,vector-method}
-\alias{createWiggle,vector,vector-method}
+\alias{createWiggle,ExpressionSet,matrix-method}
+\alias{createWiggle,vector,matrix-method}
+\alias{createWiggle,matrix,matrix-method}
 \title{ Create wiggle track (methods)}
 \description{
  Methods for creating wiggle tracks
@@ -16,9 +17,11 @@
 
 \item{x = "ExpressionSet", y = "missing"}{ Handle input of an object of class \code{ExpressionSet}. Derive features from \code{FeatureData}. }
 
-\item{x = "ExpressionSet", y = "vector"}{ Handle input of an object of class \code{ExpressionSet}. Derive features from vector input }
+\item{x = "ExpressionSet", y = "matrix"}{ Handle input of an object of class \code{ExpressionSet}. Derive features from matrix input }
 
-\item{x = "vector", y = "vector"}{ Handle vector input }
+\item{x = "vector", y = "matrix"}{ Handle vector input }
+
+\item{x = "matrix", y = "matrix"}{ Handle matrix input }
 }}
 \author{Reid F. Thompson (\email{rthompso@aecom.yu.edu}) }
 \seealso{ \code{\link{createWiggle}} }

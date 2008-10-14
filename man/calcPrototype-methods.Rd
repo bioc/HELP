@@ -4,6 +4,7 @@
 \alias{calcPrototype,missing-method}
 \alias{calcPrototype,ExpressionSet-method}
 \alias{calcPrototype,vector-method}
+\alias{calcPrototype,matrix-method}
 \title{ Calculate prototype (methods)}
 \description{
   Methods for calculating prototype ([trimmed] mean) across all samples
@@ -16,6 +17,8 @@
 \item{x = "ExpressionSet"}{ Handle input of an object of class \code{ExpressionSet}. Derive data from \code{AssayData}. }
 
 \item{x = "vector"}{ Handle vector input as a matrix }
+
+\item{x = "matrix"}{ Handle matrix input }
 }}
 \author{ Mark Reimers (\email{mreimers@vcu.edu}), Reid F. Thompson (\email{rthompso@aecom.yu.edu}) }
 \seealso{ \code{\link{calcPrototype}} }

@@ -2,7 +2,7 @@
 \docType{methods}
 \alias{plotPairs-methods}
 \alias{plotPairs,missing-method}
-\alias{plotPairs,vector-method}
+\alias{plotPairs,matrix-method}
 \alias{plotPairs,ExpressionSet-method}
 \title{ Plot tree-pairs (methods)}
 \description{
@@ -13,7 +13,7 @@
 
 \item{x = "missing"}{ Handle empty function call }
 
-\item{x = "vector"}{ Handle vector input as a matrix }
+\item{x = "matrix"}{ Handle matrix input }
 
 \item{x = "ExpressionSet"}{ Handle input of an object of class \code{ExpressionSet}. Derive data from \code{AssayData}. }
 }}
