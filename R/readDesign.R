@@ -17,7 +17,6 @@ setMethod("readDesign",
 setMethod("readDesign", 
 	signature=c("vector", "missing", "missing"), 
 	function(x, y, z, ...) {
-		x <- as.vector(x)
 		if (length(x) > 2) {
 			stop("argument 'x' must specify only one or two files")
 		}
@@ -33,8 +32,6 @@ setMethod("readDesign",
 setMethod("readDesign", 
 	signature=c("vector", "vector", "missing"), 
 	function(x, y, z, ...) {
-		x <- as.vector(x)
-		y <- as.vector(y)
 		if (length(x) != 1) {
 			stop("argument 'x' must specify one file")
 		}
