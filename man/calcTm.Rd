@@ -12,9 +12,11 @@ calcTm(x, ...)
 \arguments{
   \item{x}{ characters containing nucleotide sequences (ex: \option{"ATCGGAA"}) or an object of class \code{ExpressionSet} }
   \item{\dots}{ Additional arguments passed to methods:
-	\code{\item{strand1.concentration}}{ numeric value specifying concentration of strand 1 (default is 2e-07)}
-	\code{\item{strand2.concentration}}{ numeric value specifying concentration of strand 2 (default is 2e-07)}
-	\code{\item{method}}{ character value specifying the Tm algorithm to use (default is \option{"nearest-neighbor"}); currently not supported }
+    \describe{
+	\item{\code{strand1.concentration}}{ numeric value specifying concentration of strand 1 (default is 2e-07)}
+	\item{\code{strand2.concentration}}{ numeric value specifying concentration of strand 2 (default is 2e-07)}
+	\item{\code{method}}{ character value specifying the Tm algorithm to use (default is \option{"nearest-neighbor"}); currently not supported }
+    }
   }
 }
 \value{

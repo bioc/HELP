@@ -17,7 +17,9 @@ Alternatively, \code{x} can be a readable connection (which will be opened for r
 Alternatively, \code{y} can be a readable connection (which will be opened for reading if necessary, and if so closed at the end of the function call).  
 \code{y} can also be a complete URL. }
   \item{z}{ object in which to store pair information from files. Can be an \code{ExpressionSet}, in which case pair data will be stored in \code{featureData}. }
-  \item{\dots}{ Arguments to be passed to methods (see \code{\link{readPairs-methods}}):
+  \item{\dots}{ Arguments to be passed to methods (see
+  \code{\link{readPairs-methods}}):
+     \describe{
 	\item{\code{name}}{ character input specifying a sample name to assign to the data from specified pair files. If \option{NULL} (default), a value will be extracted from the filename specified in \code{x}.}
 	\item{\code{element.x}}{ which element of \code{AssayData} (default is \option{"exprs"}) in which to store signal channel 1 data.}
 	\item{\code{element.y}}{ which element of \code{AssayData} (default is \option{"exprs2"}) in which to store signal channel 2 data.}
@@ -29,6 +31,7 @@ Alternatively, \code{y} can be a readable connection (which will be opened for r
 	\item{\code{eSet}}{ \code{ExpressionSet} input (default is \code{new("ExpressionSet")}) in which to store pair information in \code{assayData} }
 	\item{\code{verbose}}{ logical; if \option{TRUE} (default) progress will be output to screen. If \option{FALSE}, no output will be displayed.}
 	\item{\code{\dots}}{ other arguments to be passed to \code{read.table}. See \code{\link{read.table}}. }
+    }
   }
 }
 \value{

@@ -17,13 +17,16 @@ Alternatively, \code{x} can be a readable connection (which will be opened for r
 Alternatively, \code{y} can be a readable connection (which will be opened for reading if necessary, and if so closed at the end of the function call).  
 \option{file} can also be a complete URL. }
   \item{z}{ object in which to store design information from files. Can be an \code{ExpressionSet}, in which case design information will be stored in \code{featureData}.  }
-  \item{\dots}{ Arguments to be passed to methods (see \code{\link{readDesign-methods}}):
+  \item{\dots}{ Arguments to be passed to methods (see
+  \code{\link{readDesign-methods}}):
+     \describe{
 	\item{\code{path}}{ a character vector containing a single full path name to which filenames will be appended. If \option{NULL}, filenames (\code{x} and \code{y}) are treated as is. }
 	\item{\code{comment.char}}{ character: a character vector of length one containing a single character or an empty string (default is \option{"\#"}). Use \option{""} to turn off the interpretation of comments altogether. }
 	\item{\code{sep}}{ the field separator character (default is \option{"\t"}). Values on each line of the file are separated by this character. If \option{sep = ""} the separator is "white space", that is one or more spaces, tabs, newlines or carriage returns. }
 	\item{\code{quote}}{ the set of quoting characters (default is \option{"\""}). To disable quoting altogether, use \code{quote = ""}. See \code{\link{scan}} for the behavior on quotes embedded in quotes. Quoting is only considered for columns read as character, which is all of them unless \option{colClasses} is specified. }
 	\item{\code{eSet}}{ \code{ExpressionSet} input (default is \code{new("ExpressionSet")}) in which to store design information in \code{featureData} }
 	\item{\code{\dots}}{ other arguments to be passed to \code{read.table}. See \code{\link{read.table}}. }
+    }
   }
 }
 \value{

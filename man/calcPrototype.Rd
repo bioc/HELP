@@ -12,6 +12,7 @@ calcPrototype(x, ...)
 \arguments{
   \item{x}{ a numeric matrix, where each column represents a different sample }
   \item{\dots}{ Arguments to be passed to methods (see \code{\link{calcPrototype-methods}}):
+    \describe{
 	\item{\code{element}}{ which element of \code{AssayData} to use for a given \code{ExpressionSet} input (default is \option{"exprs"})}
 	\item{\code{samples}}{ which samples to use as data. Can be a vector of characters matching sample names, integers indicating which samples to choose, or a mixture of the two. If \option{NULL} (default), all samples will be used.}
 	\item{\code{center}}{ logical; if \option{TRUE} (default) samples will be mean-centered before protototype calculation. If \option{FALSE}, this mean-centering step will be skipped }
@@ -19,6 +20,7 @@ calcPrototype(x, ...)
 	\item{\code{verbose}}{ logical; if \option{TRUE} (default) progress will be output to screen. If \option{FALSE}, no output will be displayed.}
 	\item{\code{\dots}}{ other arguments to be passed to \code{mean}. See \code{\link{mean}}.}
 	}
+    }
 }
 \value{
  Returns a vector of numerical data, representing the prototype ([trimmed] mean) of all samples in x.

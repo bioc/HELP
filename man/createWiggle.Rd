@@ -12,7 +12,9 @@ createWiggle(x, y, ...)
 \arguments{
   \item{x}{ matrix of numerical data, where each column represents data for an individual wiggle track. \code{x} can also be of class \code{"ExpressionSet"}.  }
   \item{y}{  an additional matrix of numerical data with columns corresponding to chr, start, and end, respectively. }
-  \item{\dots}{ Arguments to be passed to methods (see \code{\link{createWiggle-methods}}):
+  \item{\dots}{ Arguments to be passed to methods (see
+  \code{\link{createWiggle-methods}}):
+     \describe{
 	\item{\code{element}}{ which element of \code{AssayData} to use for a given \code{ExpressionSet} input (default is \option{"exprs"}) }
 	\item{\code{feature.chr}}{ which element of \code{featureData} to use as chromosomal information (default is \option{"CHR"}). Can be a character matching \code{varLabel} or simply an integer indicating which feature to choose. }
 	\item{\code{feature.start}}{ which element of \code{featureData} to use as start positions (default is \option{"START"}). Can be a character matching \code{varLabel} or simply an integer indicating which feature to choose. }
@@ -24,6 +26,7 @@ createWiggle(x, y, ...)
 	\item{\code{na.rm}}{ logical; if \option{TRUE} (default), missing values are removed from data. If \option{FALSE} any missing values cause an error }
 	\item{\code{sep}}{ a string used to separate columns. Using \option{sep = "\t"} (default) gives tab-delimited output. }
 	\item{\code{\dots}}{ other arguments to be passed to \code{cat}. See \code{\link{cat}}.}
+    }
   }
 }
 \references{ UCSC Genome Browser, \url{http://genome.ucsc.edu/goldenPath/help/customTrack.html}:

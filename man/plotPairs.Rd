@@ -11,7 +11,9 @@ plotPairs(x, ...)
 %- maybe also 'usage' for other objects documented here.
 \arguments{
   \item{x}{ a numeric matrix, where each column represents a different sample. \code{x} can also be of class \code{"ExpressionSet"}. }
-  \item{\dots}{ Arguments to be passed to methods (see \code{\link{plotPairs-methods}}):
+  \item{\dots}{ Arguments to be passed to methods (see
+  \code{\link{plotPairs-methods}}):
+     \describe{
 	\item{\code{element}}{ which element of \code{AssayData} to use for a given \code{ExpressionSet} input (default is \option{"exprs"}) }
 	\item{\code{samples}}{ which samples to use as data. Can be a vector of characters matching sample names, integers indicating which samples to choose, or a mixture of the two. If \option{NULL} (default), all samples will be used.}
 	\item{\code{scale}}{ logical value indicating whether sample branch lengths should be scaled by distance (default is \option{TRUE}) }
@@ -21,6 +23,7 @@ plotPairs(x, ...)
 	\item{\code{k}}{ an integer scalar or vector with the desired number of groups. If \option{NULL} (default), grouping will rely instead on distance measurements: see \code{\link{cutree}} for more details. }
 	\item{\code{\dots}}{ other arguments to be passed to \code{pairs} or \code{dist}. See \code{\link{pairs}}, \code{\link{dist}}.}
   	}
+   }
 }
 \author{ Reid F. Thompson (\email{rthompso@aecom.yu.edu}) }
 \seealso{ \code{\link{plotPairs-methods}}, \code{\link{dist}}, \code{\link{hclust}}, \code{\link{dendrogram}}, \code{\link{cutree}}, \code{\link{pairs}} }

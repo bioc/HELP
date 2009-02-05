@@ -14,6 +14,7 @@ combineData(x, y, w, ...)
   \item{y}{ a vector describing the discrete groups used to divide the elements of x.  If y is missing then all elements of x are handled together. }
   \item{w}{ a matrix of weights the same dimensions as x giving the weights to use for each element of x. If w is missing then all elements of x are given the same weight. }
   \item{\dots}{ Arguments to be passed to methods (see \code{\link{combineData-methods}}): 
+     \describe{
 	\item{\code{trim}}{the fraction (0 to 0.5, default is 0) of observations to be trimmed from each group of rows in \code{x} according to \code{y}. }
 	\item{\code{na.rm}}{logical; if \option{TRUE}, missing values are removed from \code{x} and \code{y} and \code{z}. If \option{FALSE} any missing values cause an error.}
 	\item{\code{element}}{ which element of \code{AssayData} to use for a given \code{ExpressionSet} input (default is \option{"exprs"}) }
@@ -22,6 +23,7 @@ combineData(x, y, w, ...)
 	\item{\code{feature.weight}}{ which element of \code{featureData} to use as weighting variable (default is \code{NULL}). Can be a character matching \code{varLabel} or simply an integer indicating which feature to choose. See \code{\link{getFeatures}}. }
 	\item{\code{samples}}{ which samples to use as data. Can be a vector of characters matching sample names, integers indicating which samples to choose, or a mixture of the two. If \option{NULL} (default), all samples will be used.}
 	\item{\code{\dots}}{ other arguments not handled at this time.}  
+    }
   }
 }
 \value{

@@ -12,7 +12,9 @@ fuzzyMatches(x, y, ...)
 \arguments{
   \item{x}{ vector, the values to be matched. }
   \item{y}{ vector, the values to be matched against. }
-  \item{\dots}{ Arguments to be passed to methods (see \code{\link{getSamples-methods}}):
+  \item{\dots}{ Arguments to be passed to methods (see
+  \code{\link{getSamples-methods}}):
+    \describe{
 	\item{\code{strict}}{ logical indicating whether or not to allow restrict matching. If \option{FALSE}, numerical indices in \code{x} can reference values in \code{y}. If \option{TRUE} (default), only exact matches of values in \code{x} and \code{y} will be used. }
 	\item{\code{keep}}{ logical indicating whether or not to preserve non-matching values from \code{x} (when \code{strict = FALSE}). If \option{TRUE} (default), all values in \code{x} will be returned with those that match values in \code{y} replaced by the corresponding values in \code{y}. If \option{FALSE}, non-matching values will be removed.  }
 	\item{\code{alias}}{ logical indicating whether or not to return aliased values (default is \option{TRUE}). If \option{FALSE}, numerical indices will be returned with a value of \code{nomatch} for non-matching values in \code{x}. }
@@ -21,6 +23,7 @@ fuzzyMatches(x, y, ...)
 	\item{\code{na.rm}}{ a logical value indicating whether NA values should be stripped before the computation proceeds (default is \option{TRUE}). If \option{FALSE} any missing values in \code{x} will cause an error and missing values in code{y} may cause unexpected behavior. }
 	\item{\code{\dots}}{ other arguments not handled at this time.  }
     }
+  }
 }
 \details{
   This function employs multiple stages of matching between two vectors.  First, the values in \code{x} are matched against \code{y} to find any exact matches. Next, numerical values in \code{x} are used to retrieve the corresponding positions in \code{y}. All unmatched values may be retained or dropped (depending on the value of \code{keep}), and a list of unique values is returned. Note that a value of \code{match.all} in \code{x} will be interpreted as a match for ALL values in \code{y}, and therefore replaced with the contents of \code{y}.

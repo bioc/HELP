@@ -12,7 +12,9 @@ plotFeature(x, y, ...)
 \arguments{
   \item{x}{ matrix of numerical data to be plotted, with two columns (one for each signal channel). \code{x} can also be of class \code{"ExpressionSet"}. }
   \item{y}{ an additional vector of numerical data to be used for feature. If \code{y} is missing, the function will attempt to fill a value from \code{featureData} in \code{x}. }
-  \item{\dots}{ Arguments to be passed to methods (see \code{\link{plotFeature-methods}}):
+  \item{\dots}{ Arguments to be passed to methods (see
+  \code{\link{plotFeature-methods}}):
+     \describe{
 	\item{\code{element.x}}{ which element of \code{AssayData} to use (for signal channel 1) for a given \code{ExpressionSet} input (default is \option{"exprs"}) }
 	\item{\code{element.y}}{ which element of \code{AssayData} to use (for signal channel 2) for a given \code{ExpressionSet} input (default is \option{"exprs2"}) }
 	\item{\code{sample}}{ which element of \code{sampleNames} to use as data (default is 1). Can be a character matching a sample name or simply an integer indicating which sample to choose. }
@@ -30,7 +32,8 @@ plotFeature(x, y, ...)
 	\item{\code{ylab2}}{ a title for the y axis for signal channel 2 (default is \option{"log(HpaII)"}): see \code{\link{title}}. }
 	\item{\code{cex}}{ numerical value (default is 0.2) giving the amount by which plotting text and symbols should be scaled relative to the default.  }
 	\item{\code{\dots}}{ other arguments to be passed to \code{plot}. See \code{\link{plot}}.}  
- }
+    }
+  }
 }
 \author{ Reid F. Thompson (\email{rthompso@aecom.yu.edu}) }
 \seealso{ \code{\link{plotFeature-methods}} }
