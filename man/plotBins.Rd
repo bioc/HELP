@@ -15,18 +15,18 @@ plotBins(x, y, ...)
   \item{\dots}{ Arguments to be passed to methods (see
   \code{\link{plotBins-methods}}):
      \describe{
-	\item{\code{element}}{ which element of \code{AssayData} to use for a given \code{ExpressionSet} input (default is \option{"exprs"}) }
-	\item{\code{sample}}{ which element of \code{sampleNames} to use as data (default is 1). Can be a character matching a sample name or simply an integer indicating which sample to choose. See \code{\link{getSamples}}. }
-	\item{\code{feature}}{ which element of \code{featureData} to use as binning variable (default is 1). Can be a character matching \code{varLabel} or simply an integer indicating which feature to choose. See \code{\link{getFeatures}}.}
-	\item{\code{num.bins}}{ number of bins (default is 10) used to divide the data }
-	\item{\code{num.steps}}{ number of steps (default is 3) used to create bin offsets, resulting in bins of sliding windows }
-	\item{\code{mode}}{ the binning mode to be used. This must be either \option{"continuous"} or \option{"discrete"}. \option{"continuous"} mode will divide the data into density-dependent bins.  \option{"discrete"} mode will divide the data uniformly by binning data values. }
-	\item{\code{show.avg}}{ logical; if \option{TRUE}, plots overall density in addition to densities per bin. If \option{FALSE} (default), overall density plot is omitted. }
-	\item{\code{main}}{ an overall title for the plot: see \code{\link{title}}. }
-	\item{\code{xlab}}{ a title for the x axis: see \code{\link{title}}. }
-	\item{\code{ylab}}{ a title for the y axis: see \code{\link{title}}. }
-	\item{\code{na.rm}}{ logical; if \option{TRUE} (default), missing values are removed from x and y. If \option{FALSE} any missing values cause an error.}
-	\item{\code{\dots}}{ other arguments to be passed to \code{plot}. See \code{\link{plot}}.}
+	\item{\option{element}}{ which element of \code{AssayData} to use for a given \code{ExpressionSet} input (default is \option{"exprs"}) }
+	\item{\option{sample}}{ which element of \code{sampleNames} to use as data (default is 1). Can be a character matching a sample name or simply an integer indicating which sample to choose. See \code{\link{getSamples}}. }
+	\item{\option{feature}}{ which element of \code{featureData} to use as binning variable (default is 1). Can be a character matching \code{varLabel} or simply an integer indicating which feature to choose. See \code{\link{getFeatures}}.}
+	\item{\option{num.bins}}{ number of bins (default is 10) used to divide the data }
+	\item{\option{num.steps}}{ number of steps (default is 3) used to create bin offsets, resulting in bins of sliding windows }
+	\item{\option{mode}}{ the binning mode to be used. This must be either \option{"continuous"} or \option{"discrete"}. \option{"continuous"} mode will divide the data into density-dependent bins.  \option{"discrete"} mode will divide the data uniformly by binning data values. }
+	\item{\option{show.avg}}{ logical; if \option{TRUE}, plots overall density in addition to densities per bin. If \option{FALSE} (default), overall density plot is omitted. }
+	\item{\option{main}}{ an overall title for the plot: see \code{\link{title}}. }
+	\item{\option{xlab}}{ a title for the x axis: see \code{\link{title}}. }
+	\item{\option{ylab}}{ a title for the y axis: see \code{\link{title}}. }
+	\item{\option{na.rm}}{ logical; if \option{TRUE} (default), missing values are removed from x and y. If \option{FALSE} any missing values cause an error.}
+	\item{\option{\dots}}{ other arguments to be passed to \code{plot}. See \code{\link{plot}}.}
 	}
    }
 }

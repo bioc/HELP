@@ -12,8 +12,8 @@ calcGC(x, ...)
 \arguments{
   \item{x}{ characters containing nucleotide sequence (ex: \option{"ATCGGAA"}) or an object of class \code{ExpressionSet} }
   \item{\dots}{ Other arguments passed to methods:
-     \describe{
-	\item{\code{allow}}{ vector of characters specifying what other characters to allow in sequence (default is \option{"N"}) }
+	\describe{
+	\item{\option{allow}}{ vector of characters specifying what other characters to allow in sequence (default is \option{"N"}) }
 	}
     }
 }

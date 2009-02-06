@@ -15,17 +15,17 @@ createWiggle(x, y, ...)
   \item{\dots}{ Arguments to be passed to methods (see
   \code{\link{createWiggle-methods}}):
      \describe{
-	\item{\code{element}}{ which element of \code{AssayData} to use for a given \code{ExpressionSet} input (default is \option{"exprs"}) }
-	\item{\code{feature.chr}}{ which element of \code{featureData} to use as chromosomal information (default is \option{"CHR"}). Can be a character matching \code{varLabel} or simply an integer indicating which feature to choose. }
-	\item{\code{feature.start}}{ which element of \code{featureData} to use as start positions (default is \option{"START"}). Can be a character matching \code{varLabel} or simply an integer indicating which feature to choose. }
-	\item{\code{feature.stop}}{ which element of \code{featureData} to use as end positions (default is \option{"STOP"}). Can be a character matching \code{varLabel} or simply an integer indicating which feature to choose. }
-	\item{\code{samples}}{ which sample(s) to use as data. Can be a vector of characters matching sample names, integers indicating which samples to choose, or a mixture of the two. If \option{NULL} (default), all samples will be used. }
-	\item{\code{colors}}{ vector of colors, indicates which colors to use for which wiggle track }
-	\item{\code{file}}{ location of file to write wiggle track information; if \option{""}, wiggle track prints to the standard output connection: see \code{\link{cat}}. }
-	\item{\code{append}}{ logical; if \option{TRUE}, the output is appended to an existent wiggle track file. If \option{FALSE} (default), a new file with a new header is created and any existing file of the same name is destroyed. }
-	\item{\code{na.rm}}{ logical; if \option{TRUE} (default), missing values are removed from data. If \option{FALSE} any missing values cause an error }
-	\item{\code{sep}}{ a string used to separate columns. Using \option{sep = "\t"} (default) gives tab-delimited output. }
-	\item{\code{\dots}}{ other arguments to be passed to \code{cat}. See \code{\link{cat}}.}
+	\item{\option{element}}{ which element of \code{AssayData} to use for a given \code{ExpressionSet} input (default is \option{"exprs"}) }
+	\item{\option{feature.chr}}{ which element of \code{featureData} to use as chromosomal information (default is \option{"CHR"}). Can be a character matching \code{varLabel} or simply an integer indicating which feature to choose. }
+	\item{\option{feature.start}}{ which element of \code{featureData} to use as start positions (default is \option{"START"}). Can be a character matching \code{varLabel} or simply an integer indicating which feature to choose. }
+	\item{\option{feature.stop}}{ which element of \code{featureData} to use as end positions (default is \option{"STOP"}). Can be a character matching \code{varLabel} or simply an integer indicating which feature to choose. }
+	\item{\option{samples}}{ which sample(s) to use as data. Can be a vector of characters matching sample names, integers indicating which samples to choose, or a mixture of the two. If \option{NULL} (default), all samples will be used. }
+	\item{\option{colors}}{ vector of colors, indicates which colors to use for which wiggle track }
+	\item{\option{file}}{ location of file to write wiggle track information; if \option{""}, wiggle track prints to the standard output connection: see \code{\link{cat}}. }
+	\item{\option{append}}{ logical; if \option{TRUE}, the output is appended to an existent wiggle track file. If \option{FALSE} (default), a new file with a new header is created and any existing file of the same name is destroyed. }
+	\item{\option{na.rm}}{ logical; if \option{TRUE} (default), missing values are removed from data. If \option{FALSE} any missing values cause an error }
+	\item{\option{sep}}{ a string used to separate columns. Using \option{sep = "\t"} (default) gives tab-delimited output. }
+	\item{\option{\dots}}{ other arguments to be passed to \code{cat}. See \code{\link{cat}}.}
     }
   }
 }

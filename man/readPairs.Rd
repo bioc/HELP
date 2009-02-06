@@ -20,17 +20,17 @@ Alternatively, \code{y} can be a readable connection (which will be opened for r
   \item{\dots}{ Arguments to be passed to methods (see
   \code{\link{readPairs-methods}}):
      \describe{
-	\item{\code{name}}{ character input specifying a sample name to assign to the data from specified pair files. If \option{NULL} (default), a value will be extracted from the filename specified in \code{x}.}
-	\item{\code{element.x}}{ which element of \code{AssayData} (default is \option{"exprs"}) in which to store signal channel 1 data.}
-	\item{\code{element.y}}{ which element of \code{AssayData} (default is \option{"exprs2"}) in which to store signal channel 2 data.}
-	\item{\code{match.probes}}{ logical specifying whether to match data from pair files by \option{"PROBE\_ID"} with any pre-existing data. if \option{TRUE} (default), order of values will be rearranged so long as there are already \option{"PROBE\_ID"}s specified in \code{featureData}.}
-	\item{\code{path}}{ a character vector containing a single full path name to which filenames will be appended. If \option{NULL}, filenames (\code{x} and \code{y}) are treated as is. }
-	\item{\code{comment.char}}{ character: a character vector of length one containing a single character or an empty string (default is \option{"\#"}). Use \option{""} to turn off the interpretation of comments altogether. }
-	\item{\code{sep}}{ the field separator character (default is \option{"\t"}). Values on each line of the file are separated by this character. If \option{sep = ""} the separator is "white space", that is one or more spaces, tabs, newlines or carriage returns. }
-	\item{\code{quote}}{ the set of quoting characters (default is \option{"\""}). To disable quoting altogether, use \code{quote = ""}. See \code{\link{scan}} for the behaviour on quotes embedded in quotes. Quoting is only considered for columns read as character, which is all of them unless \option{colClasses} is specified. }
-	\item{\code{eSet}}{ \code{ExpressionSet} input (default is \code{new("ExpressionSet")}) in which to store pair information in \code{assayData} }
-	\item{\code{verbose}}{ logical; if \option{TRUE} (default) progress will be output to screen. If \option{FALSE}, no output will be displayed.}
-	\item{\code{\dots}}{ other arguments to be passed to \code{read.table}. See \code{\link{read.table}}. }
+	\item{\option{name}}{ character input specifying a sample name to assign to the data from specified pair files. If \option{NULL} (default), a value will be extracted from the filename specified in \code{x}.}
+	\item{\option{element.x}}{ which element of \code{AssayData} (default is \option{"exprs"}) in which to store signal channel 1 data.}
+	\item{\option{element.y}}{ which element of \code{AssayData} (default is \option{"exprs2"}) in which to store signal channel 2 data.}
+	\item{\option{match.probes}}{ logical specifying whether to match data from pair files by \option{"PROBE\_ID"} with any pre-existing data. if \option{TRUE} (default), order of values will be rearranged so long as there are already \option{"PROBE\_ID"}s specified in \code{featureData}.}
+	\item{\option{path}}{ a character vector containing a single full path name to which filenames will be appended. If \option{NULL}, filenames (\code{x} and \code{y}) are treated as is. }
+	\item{\option{comment.char}}{ character: a character vector of length one containing a single character or an empty string (default is \option{"\#"}). Use \option{""} to turn off the interpretation of comments altogether. }
+	\item{\option{sep}}{ the field separator character (default is \option{"\t"}). Values on each line of the file are separated by this character. If \option{sep = ""} the separator is "white space", that is one or more spaces, tabs, newlines or carriage returns. }
+	\item{\option{quote}}{ the set of quoting characters (default is \option{"\""}). To disable quoting altogether, use \code{quote = ""}. See \code{\link{scan}} for the behaviour on quotes embedded in quotes. Quoting is only considered for columns read as character, which is all of them unless \option{colClasses} is specified. }
+	\item{\option{eSet}}{ \code{ExpressionSet} input (default is \code{new("ExpressionSet")}) in which to store pair information in \code{assayData} }
+	\item{\option{verbose}}{ logical; if \option{TRUE} (default) progress will be output to screen. If \option{FALSE}, no output will be displayed.}
+	\item{\option{\dots}}{ other arguments to be passed to \code{read.table}. See \code{\link{read.table}}. }
     }
   }
 }
@@ -38,12 +38,12 @@ Alternatively, \code{y} can be a readable connection (which will be opened for r
   Returns an \code{ExpressionSet} filled with \code{assayData} containing matrices of data from both signal channels.
    
   and \code{featureData} containing the following \code{featureColumns}:
-  \item{\code{SEQ_ID}}{a vector of characters with container IDs, linking each probe to a parent identifier}
-  \item{\code{PROBE_ID}}{a vector of characters containing unique ID information for each probe}
+  \item{\option{SEQ_ID}}{a vector of characters with container IDs, linking each probe to a parent identifier}
+  \item{\option{PROBE_ID}}{a vector of characters containing unique ID information for each probe}
 
   and \code{phenoData} containing the following \code{sampleColumns}:
-  \item{\code{CHIPS}}{a vector of characters with .pair file locations for signal channel 1 data }
-  \item{\code{CHIPS2}}{a vector of characters with .pair file locations for signal channel 2 data }
+  \item{\option{CHIPS}}{a vector of characters with .pair file locations for signal channel 1 data }
+  \item{\option{CHIPS2}}{a vector of characters with .pair file locations for signal channel 2 data }
   
 }
 \author{ Reid F. Thompson (\email{rthompso@aecom.yu.edu}) }

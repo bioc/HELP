@@ -15,13 +15,13 @@ fuzzyMatches(x, y, ...)
   \item{\dots}{ Arguments to be passed to methods (see
   \code{\link{getSamples-methods}}):
     \describe{
-	\item{\code{strict}}{ logical indicating whether or not to allow restrict matching. If \option{FALSE}, numerical indices in \code{x} can reference values in \code{y}. If \option{TRUE} (default), only exact matches of values in \code{x} and \code{y} will be used. }
-	\item{\code{keep}}{ logical indicating whether or not to preserve non-matching values from \code{x} (when \code{strict = FALSE}). If \option{TRUE} (default), all values in \code{x} will be returned with those that match values in \code{y} replaced by the corresponding values in \code{y}. If \option{FALSE}, non-matching values will be removed.  }
-	\item{\code{alias}}{ logical indicating whether or not to return aliased values (default is \option{TRUE}). If \option{FALSE}, numerical indices will be returned with a value of \code{nomatch} for non-matching values in \code{x}. }
-	\item{\code{match.all}}{ character value, specifying a special value to be interpreted as a match for ALL values in \code{y} (default is \option{"*"}). Any occurence of \code{match.all} in \code{x} will be replaced by all values in \code{y}. }
-	\item{\code{nomatch}}{ numerical, specifying a value for non-matching values in code{x} when \code{strict = FALSE}, \code{keep = TRUE}, and \code{alias = FALSE}.}
-	\item{\code{na.rm}}{ a logical value indicating whether NA values should be stripped before the computation proceeds (default is \option{TRUE}). If \option{FALSE} any missing values in \code{x} will cause an error and missing values in code{y} may cause unexpected behavior. }
-	\item{\code{\dots}}{ other arguments not handled at this time.  }
+	\item{\option{strict}}{ logical indicating whether or not to allow restrict matching. If \option{FALSE}, numerical indices in \code{x} can reference values in \code{y}. If \option{TRUE} (default), only exact matches of values in \code{x} and \code{y} will be used. }
+	\item{\option{keep}}{ logical indicating whether or not to preserve non-matching values from \code{x} (when \code{strict = FALSE}). If \option{TRUE} (default), all values in \code{x} will be returned with those that match values in \code{y} replaced by the corresponding values in \code{y}. If \option{FALSE}, non-matching values will be removed.  }
+	\item{\option{alias}}{ logical indicating whether or not to return aliased values (default is \option{TRUE}). If \option{FALSE}, numerical indices will be returned with a value of \code{nomatch} for non-matching values in \code{x}. }
+	\item{\option{match.all}}{ character value, specifying a special value to be interpreted as a match for ALL values in \code{y} (default is \option{"*"}). Any occurence of \code{match.all} in \code{x} will be replaced by all values in \code{y}. }
+	\item{\option{nomatch}}{ numerical, specifying a value for non-matching values in code{x} when \code{strict = FALSE}, \code{keep = TRUE}, and \code{alias = FALSE}.}
+	\item{\option{na.rm}}{ a logical value indicating whether NA values should be stripped before the computation proceeds (default is \option{TRUE}). If \option{FALSE} any missing values in \code{x} will cause an error and missing values in code{y} may cause unexpected behavior. }
+	\item{\option{\dots}}{ other arguments not handled at this time.  }
     }
   }
 }

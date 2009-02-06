@@ -15,9 +15,9 @@ getSamples(x, y, ...)
   \item{\dots}{ Arguments to be passed to methods (see
   \code{\link{getSamples-methods}}):
      \describe{
-	\item{\code{element}}{ which element of \code{AssayData} to use for a given \code{ExpressionSet} input (default is \option{"exprs"}) }
-	\item{\code{order}}{ vector of characters, specifying on which column(s) to order the sample data. If \option{NULL} (default), the data will be returned without ordering enforced. }
-	\item{\code{\dots}}{ other arguments passed are not handled at this time. }
+	\item{\option{element}}{ which element of \code{AssayData} to use for a given \code{ExpressionSet} input (default is \option{"exprs"}) }
+	\item{\option{order}}{ vector of characters, specifying on which column(s) to order the sample data. If \option{NULL} (default), the data will be returned without ordering enforced. }
+	\item{\option{\dots}}{ other arguments passed are not handled at this time. }
     }
   }
 }
