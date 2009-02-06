@@ -7,4 +7,4 @@ Maintainer: Reid F. Thompson <rthompso@aecom.yu.edu>
 Depends: R (>= 2.8.0), stats, graphics, grDevices, Biobase, methods
 Description: The package contains a modular pipeline for analysis of HELP microarray data, and includes graphical and mathematical tools with more general applications 
 License: GPL version 2 or newer
-biocViews: Microarray, TwoChannel, DataImport, QualityControl, Preprocessing, Visualization
+biocViews: CpGIsland, DNAMethylation, Microarray, TwoChannel, DataImport, QualityControl, Preprocessing, Visualization
