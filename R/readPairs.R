@@ -173,6 +173,9 @@ setMethod("readPairs",
 			end <- proc.time()["elapsed"]
 			cat("FINISHED (", (end-start), "s elapsed)\n")
 		}
+		if (length(featureNames(assayData(z))) != length(featureNames(featureData(z)))) {
+			featureNames(assayData(z)) <- featureNames(featureData(z))
+		}
 		return(z)
 	}
 )
