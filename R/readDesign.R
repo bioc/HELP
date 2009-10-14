@@ -104,8 +104,11 @@ setMethod("readDesign",
 			feature.ord <- match(feature.names, ndf$"PROBE_ID")
 			ndf <- ndf[feature.ord, ]
 		}
+		else {
+			feature.names <- ndf$"PROBE_ID"
+		}
 		map <- match(ndf$"SEQ_ID", ngd$"SEQ_ID")
-		features <- data.frame(cbind(ndf$"SEQ_ID", ndf$"PROBE_ID", ndf$"X", ndf$"Y", ndf$"CONTAINER", ngd$"CHROMOSOME"[map], ngd$"START"[map], ngd$"STOP"[map], as.numeric((ngd$"STOP"-ngd$"START"+1)[map]), ndf$"PROBE_SEQUENCE"), row.names=1:dim(ndf)[1])
+		features <- data.frame(cbind(ndf$"SEQ_ID", ndf$"PROBE_ID", ndf$"X", ndf$"Y", ndf$"CONTAINER", ngd$"CHROMOSOME"[map], ngd$"START"[map], ngd$"STOP"[map], as.numeric((ngd$"STOP"-ngd$"START"+1)[map]), ndf$"PROBE_SEQUENCE"), row.names=feature.names)
 		names(features) <- c("SEQ_ID", "PROBE_ID", "X", "Y", "TYPE", "CHR", "START", "STOP", "SIZE", "SEQUENCE")
 		rm(ngd)
 		if ("DMD" %in% headers.ndf) {

@@ -164,11 +164,12 @@ setMethod("readPairs",
 		}
 		empty <- matrix(NA, nrow=1, ncol=dim(phenodata)[2])
 		colnames(empty) <- colnames(phenodata)
-		phenodata <- rbind(phenodata, empty)	
+		phenodata <- rbind(phenodata, empty)
 		phenodata$"CHIPS"[dim(phenodata)[1]] <- x
 		phenodata$"CHIPS2"[dim(phenodata)[1]] <- y
+		rownames(phenodata) <- name
 		phenoData(z) <- new("AnnotatedDataFrame", data=as.data.frame(phenodata), dimLabels=c("sampleNames", "sampleColumns"))
-		sampleNames(z) <- name
+		protocolData(z) <- phenoData(z)		
 		if (verbose) {
 			end <- proc.time()["elapsed"]
 			cat("FINISHED (", (end-start), "s elapsed)\n")
