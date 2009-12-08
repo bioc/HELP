@@ -21,6 +21,7 @@ plotPairs(x, ...)
 	\item{\option{dist.method}}{ the distance measure to be used. This must be one of \option{"euclidean"} (default), \option{"maximum"}, \option{"manhattan"}, \option{"canberra"}, \option{"binary"} or \option{"minkowski"}. Any unambiguous substring can be given: see \code{\link{dist}} for more details. }
 	\item{\option{hclust.method}}{ the agglomeration method to be used. This should be (an unambiguous abbreviation of) one of \option{"ward"} (default), \option{"single"}, \option{"complete"}, \option{"average"}, \option{"mcquitty"}, \option{"median"} or \option{"centroid"}: see \code{\link{hclust}} for more details. }
 	\item{\option{k}}{ an integer scalar or vector with the desired number of groups. If \option{NULL} (default), grouping will rely instead on distance measurements: see \code{\link{cutree}} for more details. }
+	\item{\option{cor.method}}{ the correlation algorithm to be used. This must be one of \option{"pearson"} (default), \option{"kendall"}, or \option{"spearman"}. Any unambiguous substring can be given: see \code{\link{cor}} for more details. }
 	\item{\option{\dots}}{ other arguments to be passed to \code{pairs} or \code{dist}. See \code{\link{pairs}}, \code{\link{dist}}.}
   	}
    }

@@ -27,7 +27,7 @@ setMethod("plotPairs",
 ##DEFINE MAIN plotPairs() METHOD TO HANDLE CLASS: "matrix"
 setMethod("plotPairs", 
 	signature=c("matrix"), 
-	function(x, samples=NULL, scale=TRUE, groups=TRUE, dist.method="euclidean", hclust.method="ward", k=NULL, ...) {
+	function(x, samples=NULL, scale=TRUE, groups=TRUE, dist.method="euclidean", hclust.method="ward", k=NULL, cor.method="pearson", ...) {
 		par.initial <- par()
 		x <- getSamples(as.matrix(x), samples, ...)
 		N <- dim(x)[2]
@@ -47,7 +47,7 @@ setMethod("plotPairs",
 			data.points <- sample(1:length(x), size=1000, replace=TRUE)
 			data.points <- data.points[order(data.points)]
 			points(x[data.points], y[data.points], type="p", pch=20, cex=0.2, col="blue")
-			xy.cor <- ceiling(10000*cor(x, y))/10000
+			xy.cor <- ceiling(10000*cor(x, y, method=cor.method))/10000
 			l <- lowess(x, y)
 			lines(l$x[data.points], l$y[data.points], col="red")
 			text(usr[1], 0.9*(usr[4]-usr[3])+usr[3], labels=paste(" R=", xy.cor, sep=""), cex=1.2, adj=0)
