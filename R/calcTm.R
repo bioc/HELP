@@ -70,7 +70,7 @@ setMethod("calcTm",
 				dH <- dH+base.stacking.thermodynamics[seq.dinucleotide,1]
 				dS <- dS+base.stacking.thermodynamics[seq.dinucleotide,2]
 			}
-			sequence[curr] <- as.real(1000*dH/(dS+1.987*log(max(strand1.concentration, strand2.concentration)-min(strand1.concentration, strand2.concentration)/2)) - 273.15)
+			sequence[curr] <- as.double(1000*dH/(dS+1.987*log(max(strand1.concentration, strand2.concentration)-min(strand1.concentration, strand2.concentration)/2)) - 273.15)
 		}
 		return(as.numeric(sequence))
 	}
