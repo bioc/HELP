@@ -27,7 +27,7 @@ setMethod("plotPairs",
 ##DEFINE MAIN plotPairs() METHOD TO HANDLE CLASS: "matrix"
 setMethod("plotPairs", 
 	signature=c("matrix"), 
-	function(x, samples=NULL, scale=TRUE, groups=TRUE, dist.method="euclidean", hclust.method="ward", k=NULL, cor.method="pearson", ...) {
+	function(x, samples=NULL, scale=TRUE, groups=TRUE, dist.method="euclidean", hclust.method="ward.D", k=NULL, cor.method="pearson", ...) {
 		par.initial <- par()
 		x <- getSamples(as.matrix(x), samples, ...)
 		N <- dim(x)[2]
@@ -201,6 +201,6 @@ setMethod("plotPairs",
 		####################################################
 		
 		draw.tree(tree=as.dendrogram(data.cluster), range=data.range)
-		par(par.initial[which(!names(par()) %in% c("cin", "cra", "csi", "cxy", "din", "gamma"))])
+		par(par.initial[which(!names(par()) %in% c("cin", "cra", "csi", "cxy", "din", "gamma", "page"))])
 	}
 )

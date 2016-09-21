@@ -192,7 +192,7 @@ setMethod("plotFeature",
 		plot(y[x.sample], x[x.sample, 2] - x[x.sample, 1], type="p", pch=20, cex=cex, main=main, xlab=xlab, ylab="", ylim=ylim, col=data.color, ...)
 		points(y[fail.sample], x[fail.sample, 2] - x[fail.sample, 1], type="p", pch=20, cex=cex, col=fail.color)
 		abline(h=mean(random.x[, 2] - random.x[, 1], na.rm=TRUE), col=cutoff.color)
-		par(par.initial[which(!names(par()) %in% c("cin", "cra", "csi", "cxy", "din", "gamma"))])
+		par(par.initial[which(!names(par()) %in% c("cin", "cra", "csi", "cxy", "din", "gamma", "page"))])
 		if (verbose) {
 			cat("FINISHED (", (proc.time()["elapsed"]-start), "s elapsed)\n", sep="")
 		}
