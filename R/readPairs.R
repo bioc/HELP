@@ -1,3 +1,5 @@
+library(BiocInstaller)
+useDevel()
 ##DEFINE GENERIC FUNCTION readPairs()
 setGeneric("readPairs", 
 	function(x, y, z, ...) {
@@ -149,8 +151,8 @@ setMethod("readPairs",
 		else {
 			assaydata.y <- cbind(assaydata.y, data.y)
 		}
-		assayDataElement(z, element.x) <- assaydata.x
-		assayDataElement(z, element.y) <- assaydata.y
+		assayDataElement(z, element.x, validate=FALSE) <- assaydata.x
+		assayDataElement(z, element.y, validate=FALSE) <- assaydata.y
 		name <- c(sampleNames(z), name)
 		phenodata <- pData(phenoData(z))
 		empty <- matrix(NA, nrow=dim(phenodata)[1], ncol=1)
