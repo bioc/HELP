@@ -1,5 +1,3 @@
-library(BiocInstaller)
-useDevel()
 ##DEFINE GENERIC FUNCTION readPairs()
 setGeneric("readPairs", 
 	function(x, y, z, ...) {
